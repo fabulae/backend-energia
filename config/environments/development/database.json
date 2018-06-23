@@ -1,0 +1,20 @@
+{
+  "defaultConnection": "default",
+  "connections": {
+    "default": {
+      "connector": "strapi-mongoose",
+      "settings": {
+        "client": "mongo",
+        "host": "database",
+        "port": 27017,
+        "database": "energia",
+        "username": "energia",
+        "password": "energia-public"
+      },
+      "options": {
+        "authenticationDatabase": "admin",
+        "ssl": false
+      }
+    }
+  }
+}

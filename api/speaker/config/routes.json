@@ -1,0 +1,44 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/speaker",
+      "handler": "Speaker.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/speaker/:_id",
+      "handler": "Speaker.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/speaker",
+      "handler": "Speaker.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/speaker/:_id",
+      "handler": "Speaker.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/speaker/:_id",
+      "handler": "Speaker.destroy",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

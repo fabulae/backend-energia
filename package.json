@@ -1,0 +1,46 @@
+{
+  "name": "backend-energia",
+  "private": true,
+  "version": "0.1.0",
+  "description": "A Strapi application.",
+  "main": "./server.js",
+  "scripts": {
+    "setup": "cd admin && npm run setup",
+    "start": "node server.js",
+    "strapi": "node_modules/strapi/bin/strapi.js",
+    "lint": "node_modules/.bin/eslint api/**/*.js config/**/*.js plugins/**/*.js",
+    "postinstall": "node node_modules/strapi/lib/utils/post-install.js"
+  },
+  "devDependencies": {
+    "babel-eslint": "^7.1.1",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb": "^13.0.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-react": "^6.8.0"
+  },
+  "dependencies": {
+    "lodash": "4.x.x",
+    "strapi-mongoose": "3.0.0-alpha.12.2",
+    "strapi-upload-cloudinary": "^3.0.0-alpha.12.3"
+  },
+  "author": {
+    "name": "abhimediratta",
+    "email": "abhimediratta@gmail.com",
+    "url": ""
+  },
+  "maintainers": [
+    {
+      "name": "abhimediratta",
+      "email": "abhimediratta@gmail.com",
+      "url": ""
+    }
+  ],
+  "strapi": {
+    "uuid": "e064e5cc-f377-4810-b92e-1989b6c0fab6"
+  },
+  "engines": {
+    "node": ">= 9.0.0",
+    "npm": ">= 5.0.0"
+  },
+  "license": "MIT"
+}
