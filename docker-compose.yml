@@ -7,7 +7,9 @@ services:
     depends_on: 
       - database
     ports: 
-      - 1337:1337
+      - 80:1337
+    volumes:
+      - /tmp/energia-db/db:/data/db
   
   database:
     image: mongo
@@ -16,5 +18,5 @@ services:
     environment:
       - MONGO_INITDB_ROOT_USERNAME=energia
       - MONGO_INITDB_ROOT_PASSWORD=energia-public
-      - MONGO_INITDB_DATABASE=energia
+      - MONGO_INITDB_DATABASE=energia-db
     restart: always
