@@ -6,10 +6,9 @@ WORKDIR /backend-energia
 
 ADD . /backend-energia
 
-RUN npm install strapi@alpha -g
 RUN npm install 
-RUN npm run setup
+RUN npm run postinstall
 
 EXPOSE 1337
 
-CMD [ "strapi", "start" ]
+CMD [ "npm", "start" ]
