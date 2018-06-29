@@ -13,6 +13,14 @@
       "type": "string",
       "required": true,
       "unique": true
+    },
+    "color": {
+      "type": "string"
+    },
+    "image": {
+      "model": "file",
+      "via": "related",
+      "plugin": "upload"
     }
   }
 }

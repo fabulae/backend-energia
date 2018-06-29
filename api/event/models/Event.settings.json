@@ -16,7 +16,8 @@
       "type": "string"
     },
     "eventDate": {
-      "type": "date"
+      "type": "date",
+      "required": true
     },
     "eventTime": {
       "type": "time"
@@ -28,6 +29,9 @@
       "collection": "speaker",
       "via": "events",
       "dominant": true
+    },
+    "category": {
+      "model": "category"
     }
   }
 }
