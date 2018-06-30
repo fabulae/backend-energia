@@ -10,17 +10,29 @@
   },
   "attributes": {
     "name": {
-      "type": "string"
+      "type": "string",
+      "required": true
+    },
+    "slug": {
+      "type": "string",
+      "required": true,
+      "unique": true
     },
     "venue": {
       "type": "string"
     },
-    "eventDate": {
+    "startDate": {
       "type": "date",
       "required": true
     },
+    "endDate": {
+      "type": "date"
+    },
     "eventTime": {
       "type": "time"
+    },
+    "overview": {
+      "type": "text"
     },
     "agenda": {
       "type": "text"
