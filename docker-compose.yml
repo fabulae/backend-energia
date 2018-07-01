@@ -8,11 +8,11 @@ services:
       - database
     ports: 
       - 80:1337
-    volumes:
-      - /tmp/energia-db/db:/data/db
   
   database:
     image: mongo
+    volumes:
+      - /tmp/energia-db/db:/data/db
     ports: 
       - 27017:27017
     environment:
