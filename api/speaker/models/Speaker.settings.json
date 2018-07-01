@@ -21,6 +21,23 @@
       "type": "email",
       "unique": true
     },
+    "worksAt": {
+      "type": "string"
+    },
+    "about": {
+      "type": "string"
+    },
+    "linkedInUrl": {
+      "type": "string"
+    },
+    "twitterUrl": {
+      "type": "string"
+    },
+    "photo": {
+      "model": "file",
+      "via": "related",
+      "plugin": "upload"
+    },
     "events": {
       "collection": "event",
       "via": "speakers"

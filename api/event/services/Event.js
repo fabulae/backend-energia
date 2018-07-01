@@ -20,19 +20,19 @@ module.exports = {
   fetchAll: (params) => {
     // Convert `params` object to filters compatible with Mongo.
     const filters = strapi.utils.models.convertParams('event', params);
-    // Select field to populate.
-    const populate = Event.associations
-      .filter(ast => ast.autoPopulate !== false)
-      .map(ast => ast.alias)
-      .join(' ');
-
+    
     return Event
       .find()
       .where(filters.where)
       .sort(filters.sort)
       .skip(filters.start)
       .limit(filters.limit)
-      .populate(populate);
+      .populate([{
+        path: 'speakers',
+        populate: {
+          path: 'photo'
+        }
+      }]);
   },
 
   /**
