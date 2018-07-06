@@ -22,6 +22,9 @@
     "color": {
       "type": "string"
     },
+    "icon": {
+      "type": "string"
+    },
     "image": {
       "model": "file",
       "via": "related",
