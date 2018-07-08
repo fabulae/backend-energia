@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * Event.js service
+ * EventInsight.js service
  *
  * @description: A set of functions similar to controller's actions to avoid code duplication.
  */
@@ -12,104 +12,114 @@ const _ = require('lodash');
 module.exports = {
 
   /**
-   * Promise to fetch all events.
+   * Promise to fetch all eventinsights.
    *
    * @return {Promise}
    */
 
   fetchAll: (params) => {
     // Convert `params` object to filters compatible with Mongo.
-    const filters = strapi.utils.models.convertParams('event', params);
-    
-    return Event
+    const filters = strapi.utils.models.convertParams('eventinsight', params);
+    // Select field to populate.
+    const populate = EventInsight.associations
+      .filter(ast => ast.autoPopulate !== false)
+      .map(ast => ast.alias)
+      .join(' ');
+
+    return EventInsight
       .find()
       .where(filters.where)
       .sort(filters.sort)
       .skip(filters.start)
       .limit(filters.limit)
-      .populate([
-        {
-          path: 'speakers',
-          populate: {
-            path: 'photo'
-          },
-        },
-        {
-          path: 'insights'
-        }
-      ]);
+      .populate(populate);
   },
 
   /**
-   * Promise to fetch a/an event.
+   * Promise to fetch a/an eventInsight.
    *
    * @return {Promise}
    */
 
   fetch: (params) => {
     // Select field to populate.
-    const populate = Event.associations
+    const populate = EventInsight.associations
       .filter(ast => ast.autoPopulate !== false)
       .map(ast => ast.alias)
       .join(' ');
 
-    return Event
-      .findOne(_.pick(params, _.keys(Event.schema.paths)))
+    return EventInsight
+      .findOne(_.pick(params, _.keys(EventInsight.schema.paths)))
       .populate(populate);
   },
 
   /**
-   * Promise to add a/an event.
+   * Promise to count eventinsights.
+   *
+   * @return {Promise}
+   */
+
+  count: (params) => {
+    // Convert `params` object to filters compatible with Mongo.
+    const filters = strapi.utils.models.convertParams('eventinsight', params);
+
+    return EventInsight
+      .count()
+      .where(filters.where);
+  },
+
+  /**
+   * Promise to add a/an eventInsight.
    *
    * @return {Promise}
    */
 
   add: async (values) => {
     // Extract values related to relational data.
-    const relations = _.pick(values, Event.associations.map(ast => ast.alias));
-    const data = _.omit(values, Event.associations.map(ast => ast.alias));
+    const relations = _.pick(values, EventInsight.associations.map(ast => ast.alias));
+    const data = _.omit(values, EventInsight.associations.map(ast => ast.alias));
 
     // Create entry with no-relational data.
-    const entry = await Event.create(data);
+    const entry = await EventInsight.create(data);
 
     // Create relational data and return the entry.
-    return Event.updateRelations({ id: entry.id, values: relations });
+    return EventInsight.updateRelations({ id: entry.id, values: relations });
   },
 
   /**
-   * Promise to edit a/an event.
+   * Promise to edit a/an eventInsight.
    *
    * @return {Promise}
    */
 
   edit: async (params, values) => {
     // Extract values related to relational data.
-    const relations = _.pick(values, Event.associations.map(a => a.alias));
-    const data = _.omit(values, Event.associations.map(a => a.alias));
+    const relations = _.pick(values, EventInsight.associations.map(a => a.alias));
+    const data = _.omit(values, EventInsight.associations.map(a => a.alias));
 
     // Update entry with no-relational data.
-    const entry = await Event.update(params, data, { multi: true });
+    const entry = await EventInsight.update(params, data, { multi: true });
 
     // Update relational data and return the entry.
-    return Event.updateRelations(Object.assign(params, { values: relations }));
+    return EventInsight.updateRelations(Object.assign(params, { values: relations }));
   },
 
   /**
-   * Promise to remove a/an event.
+   * Promise to remove a/an eventInsight.
    *
    * @return {Promise}
    */
 
   remove: async params => {
     // Select field to populate.
-    const populate = Event.associations
+    const populate = EventInsight.associations
       .filter(ast => ast.autoPopulate !== false)
       .map(ast => ast.alias)
       .join(' ');
 
     // Note: To get the full response of Mongo, use the `remove()` method
     // or add spent the parameter `{ passRawResult: true }` as second argument.
-    const data = await Event
+    const data = await EventInsight
       .findOneAndRemove(params, {})
       .populate(populate);
 
@@ -118,7 +128,7 @@ module.exports = {
     }
 
     await Promise.all(
-      Event.associations.map(async association => {
+      EventInsight.associations.map(async association => {
         const search = _.endsWith(association.nature, 'One') || association.nature === 'oneToMany' ? { [association.via]: data._id } : { [association.via]: { $in: [data._id] } };
         const update = _.endsWith(association.nature, 'One') || association.nature === 'oneToMany' ? { [association.via]: null } : { $pull: { [association.via]: data._id } };
 
@@ -131,6 +141,28 @@ module.exports = {
       })
     );
 
+    return data;
+  },
+
+  fetchByCategory: async (params) => {
+    const data = await Event.find({ 'category': params._categoryid }).then((events) => {
+      return Eventinsight.find({
+        event: {
+          '$in': events.map(event => event.id)
+        }
+      }).populate({
+        path: 'extraFile'
+      });
+    }).then((insights) => {
+      return insights.map(insight => {
+        return {
+          ...insight._doc,
+          extraFile: {
+            ...insight.$$populatedVirtuals.extraFile._doc
+          }
+        };
+      });
+    });
     return data;
   }
 };

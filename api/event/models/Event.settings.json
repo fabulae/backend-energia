@@ -44,6 +44,10 @@
     },
     "category": {
       "model": "category"
+    },
+    "insights": {
+      "collection": "eventinsight",
+      "via": "event"
     }
   }
 }

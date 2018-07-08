@@ -1,0 +1,60 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/eventinsight",
+      "handler": "EventInsight.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/eventinsight/category/:_categoryid",
+      "handler": "EventInsight.findByCategory",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/eventinsight/count",
+      "handler": "EventInsight.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/eventinsight/:_id",
+      "handler": "EventInsight.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/eventinsight",
+      "handler": "EventInsight.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/eventinsight/:_id",
+      "handler": "EventInsight.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/eventinsight/:_id",
+      "handler": "EventInsight.destroy",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

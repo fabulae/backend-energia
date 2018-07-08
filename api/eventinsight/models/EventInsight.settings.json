@@ -1,0 +1,25 @@
+{
+  "connection": "default",
+  "collectionName": "",
+  "info": {
+    "name": "eventInsight",
+    "description": ""
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "extraFile": {
+      "model": "file",
+      "via": "related",
+      "plugin": "upload"
+    },
+    "event": {
+      "model": "event"
+    }
+  }
+}
