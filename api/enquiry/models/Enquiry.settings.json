@@ -1,0 +1,25 @@
+{
+  "connection": "default",
+  "collectionName": "",
+  "info": {
+    "name": "enquiry",
+    "description": ""
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "senderName": {
+      "type": "string",
+      "required": true
+    } ,
+    "senderEmail": {
+      "type": "string",
+      "required": true
+    },
+    "message": {
+      "type": "text",
+      "required": true
+    }
+  }
+}
