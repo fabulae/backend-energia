@@ -49,14 +49,14 @@ module.exports = {
    */
 
   create: async (ctx) => {
-    await strapi.plugins['email'].services.email.send({
-      to: 'admin@strapi.io',
-      from: 'robbot@strapi.io',
-      replyTo: 'no-reply@strapi.io',
-      subject: 'Use strapi email provider successfully',
-      text: 'Hello world!',
-      html: 'Hello world!'
-    });
+    // await strapi.plugins['email'].services.email.send({
+    //   to: 'admin@strapi.io',
+    //   from: 'robbot@strapi.io',
+    //   replyTo: 'no-reply@strapi.io',
+    //   subject: 'Use strapi email provider successfully',
+    //   text: 'Hello world!',
+    //   html: 'Hello world!'
+    // });
     return strapi.services.enquiry.add(ctx.request.body);
   },
 
